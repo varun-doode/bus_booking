@@ -10,13 +10,6 @@ pipeline {
                 sh 'git clone https://github.com/varun-doode/bus_booking.git'
             }
         }
-        stage("SonarQube analysis") {
-            steps {
-                withSonarQubeEnv('sonar') {
-                    sh 'mvn clean package sonar:sonar'
-              }
-            }
-        }
 
         stage('build') {
             steps {
@@ -24,6 +17,14 @@ pipeline {
                     sh 'mvn --version'
                     sh 'mvn clean install'
                 }
+            }
+        }
+        
+        stage("SonarQube analysis") {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh 'mvn clean package sonar:sonar'
+              }
             }
         }
 
